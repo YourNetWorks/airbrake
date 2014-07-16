@@ -64,6 +64,8 @@ module Airbrake
     # The path to the project that caused the error (usually Rails.root)
     attr_reader :project_root
 
+    attr_reader :repo_revision
+
     # The URL at which the error occurred (if any)
     attr_reader :url
 
@@ -98,6 +100,8 @@ module Airbrake
       @exception        = args[:exception]
       @api_key          = args[:api_key]
       @project_root     = args[:project_root]
+      @repo_revision    = Airbrake.configuration.repo_revision
+
       @url              = args[:url] || rack_env(:url)
 
       @notifier_name    = args[:notifier_name]
@@ -187,6 +191,7 @@ module Airbrake
           env.tag!("project-root", project_root)
           env.tag!("environment-name", environment_name)
           env.tag!("hostname", hostname)
+          env.tag!("repo-revision", repo_revision)
         end
         unless user.empty?
           notice.tag!("current-user") do |u|

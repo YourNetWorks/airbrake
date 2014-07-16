@@ -114,6 +114,8 @@ module Airbrake
     attr_accessor :test_mode
     alias_method :test_mode?, :test_mode
 
+    attr_accessor :repo_revision
+
     DEFAULT_PARAMS_FILTERS  = %w(password password_confirmation).freeze
 
     DEFAULT_USER_ATTRIBUTES = %w(id).freeze
